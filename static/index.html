@@ -11,25 +11,21 @@
   </head>
 
   <body>
-    <style type="text/css">
-      body {color:grey;}
-      p {color:blue;}
-      .red {background-color: red;}
-      </style> 
+
     <h1>Node js Express Multiple File Upload using Multer Example - ItSolutionStuff.com</h1>
 
     <form action="/" enctype="multipart/form-data" method="post">
+      <input type="email" name="email" id="email" required>
+      <label for="email"></label>
 
-      <input type="file" name="multi-files" multiple>
-
+      <input id="file-upload" type="file" name="multi-files" multiple required>
+      <div id="file-upload-filename"></div>
       <input style="background-color: white;" id='submit' type="submit" value="Upload">
 
     </form>  
 
-      <script type="text/js">
-        const subBut = document.getElementById('submit');
+      <script>
 
-subBut.addEventListener('click', subBut.classList.add('red'));
       </script>
   </body>
 
