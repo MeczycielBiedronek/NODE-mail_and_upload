@@ -1,0 +1,36 @@
+<html lang="en">
+
+  <head>
+    <title>Node js Express Multiple File Upload using Multer Example - ItSolutionStuff.com</title>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/static/css/progress.css">
+  </head>
+
+  <body>
+    <style type="text/css">
+      body {color:grey;}
+      p {color:blue;}
+      .red {background-color: red;}
+      </style> 
+    <h1>Node js Express Multiple File Upload using Multer Example - ItSolutionStuff.com</h1>
+
+    <form action="/" enctype="multipart/form-data" method="post">
+
+      <input type="file" name="multi-files" multiple>
+
+      <input style="background-color: white;" id='submit' type="submit" value="Upload">
+
+    </form>  
+
+      <script type="text/js">
+        const subBut = document.getElementById('submit');
+
+subBut.addEventListener('click', subBut.classList.add('red'));
+      </script>
+  </body>
+
+</html>
