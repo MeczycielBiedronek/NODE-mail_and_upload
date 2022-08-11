@@ -1,7 +1,7 @@
 <html lang="en">
 
   <head>
-    <title>Node js Express Multiple File Upload using Multer Example - ItSolutionStuff.com</title>
+    <title>NodeJS Express Multer + Sendmail - Simple version</title>
 
     <meta charset="UTF-8">
 
@@ -12,16 +12,19 @@
 
   <body>
 
-    <h1>Node js Express Multiple File Upload using Multer Example - ItSolutionStuff.com</h1>
+    <h1>NodeJS Express Multer + Sendmail - Simple version</h1>
 
     <form action="/" enctype="multipart/form-data" method="post">
-      <input type="email" name="email" id="email" required>
-      <label for="email"></label>
+      <input type="text" name="company" id="company" placeholder="company" required>
+      <input type="text" name="name" id="name" placeholder="name" required>
+      <input type="number" name="phone" id="phone" placeholder="phone" required>
+      <input type="email" name="email" id="email" placeholder="email" required>
 
       <input id="file-upload" type="file" name="multi-files" multiple required>
       <div id="file-upload-filename"></div>
       <input style="background-color: white;" id='submit' type="submit" value="Upload">
-
+      <input type="text" name="message" id="message" placeholder="message" required>
+      
     </form>  
 
       <script>

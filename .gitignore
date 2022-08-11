@@ -2,8 +2,8 @@ node_modules
 .env
 
 # exclude everything
-somefolder/*
+public/uploads/*
 
 # exception to the rule
-!somefolder/.gitkeep 
+!public/uploads/.gitkeep 
 

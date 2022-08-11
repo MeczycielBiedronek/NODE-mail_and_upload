@@ -4,6 +4,9 @@ const express = require('express');
 const ejs = require('ejs');
 const multer = require('multer');
 const path = require('path');
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 const app = express();
             ///// UPLOAD FILE 
@@ -16,8 +19,8 @@ const storage = multer.diskStorage({
     let day = dateObj.getUTCDate();
     let year = dateObj.getUTCFullYear();
     let newdate = "_" + year + month + day;
-
-    const dest = "public/uploads@a/" + req.body.email + newdate;
+    // Generates new folder
+    const dest = "public/uploads/" + req.body.email + newdate;
     fs.access(dest, function (error) {
       if (error) {
         console.log("Directory created");
@@ -32,7 +35,7 @@ const storage = multer.diskStorage({
   
 
     filename: function(req, file, cb) {
-        console.log(file.originalname);
+        // console.log(file.originalname);
         cb(null, file.originalname);
       
     }
@@ -57,10 +60,56 @@ app.post('/', upload.array('multi-files'), (req, res) => {
     res.redirect('/');
 }, 3000);
 
+////////////  SEND EMAIL
+const output = `
+<p>You have a new contact request</p>
+<h3>Contact Details</h3>
+<ul>  
+  <li>Name: ${req.body.name}</li>
+  <li>Company: ${req.body.company}</li>
+  <li>Email: ${req.body.email} <a href="mailto:${req.body.email}?subject=Szparowanie.pl - Widamość dotycząca zlecenia"><button>Odpowiedz</button></a></li>
+  <li>Phone: ${req.body.phone}</li>
+</ul>
+<h3>Message</h3>
+<p>${req.body.message}</p>
+`;
+
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
+host: process.env.MAILER_HOST_NAME,
+port: 465,
+secure: true, // true for 465, false for other ports
+auth: {
+    user: process.env.MAILER_EMAIL, // generated ethereal user
+    pass: process.env.MAILER_PASS // generated ethereal password
+},
+tls:{
+  rejectUnauthorized:false
+}
+});
+
+// setup email data with unicode symbols
+let mailOptions = {
+  from: `"szparowanie.pl" <${process.env.MAILER_EMAIL}>`, // sender address
+  to: process.env.MAIL_TO, // list of receivers
+  subject: `DARMOWA WYCENA - ${req.body.email}`, // Subject line
+  text: 'Hello world?', // plain text body
+  html: output // html body
+};
+
+// send mail with defined transport object
+transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+      return console.log(error);
+  }
+  console.log('Message sent: %s', info.messageId);   
+  // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+});
  
 
 });
-////////////  SEND EMAIL
+
   
 
 app.listen(80);
