@@ -6,7 +6,16 @@ const multer = require('multer');
 const path = require('path');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const mysql = require('mysql');
 require('dotenv').config();
+
+            ///// database
+const db = mysql.createConnection({
+  host      : process.env.DATABASE_HOST,
+  user      : process.env.DATABASE_USER,
+  password  : process.env.DATABASE_PASS,
+  database  : 'nodemysql'
+});
 
 const app = express();
             ///// UPLOAD FILE 
@@ -50,7 +59,6 @@ app.get('/', (req, res) => {
 
 });
 
-  
 
 app.post('/', upload.array('multi-files'), (req, res) => {
 
@@ -107,9 +115,11 @@ transporter.sendMail(mailOptions, (error, info) => {
 
 });
  
+// Updating the database
+
 
 });
 
   
 
-app.listen(80);
+app.listen(3000);
